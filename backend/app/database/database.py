@@ -9,7 +9,7 @@ load_dotenv()
 DATABASE_URL = os.getenv("DATABASE_URL")
 
 #Creat the SQLAlchemy engine
-engine = create_engine(DATABASE_URL) #there is a warning here, create_engine is underlined with a yellow squiggly line. the warning is "create_engine" is not defined
+engine = create_engine(DATABASE_URL) 
 
 #Create a session factory
 SessionLocal = sessionmaker(
