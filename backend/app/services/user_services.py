@@ -2,6 +2,9 @@ from sqlalchemy.orm import Session
 from app.models.user import User
 from app.schemas.user import UserCreate
 from app.utils.security import hash_password
+from app.schemas.user import UserLogin
+from fastapi import HTTPException
+from app.utils.security import verify_password
 
 def register_user(user: UserCreate, db: Session) -> User:
     existing_user = (
@@ -28,3 +31,21 @@ def register_user(user: UserCreate, db: Session) -> User:
     db.refresh(new_user)
 
     return new_user
+
+def login_user(user: UserLogin, db:Session):
+    existing_user = (db.query(User) 
+                     .filter(User.email == user.email) 
+                     .first()
+                     )
+    if not existing_user:
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid email or password"
+        )
+
+    if not verify_password(user.password, existing_user.hashed_password):
+        raise HTTPException(
+            status_code=401,
+            detail="Invalid email or password"
+        )
+    return existing_user

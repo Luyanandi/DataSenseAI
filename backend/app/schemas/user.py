@@ -1,4 +1,4 @@
-from pydantic import BaseModel, ConfigDict
+from pydantic import BaseModel, ConfigDict, EmailStr
 from datetime import date
 
 #Create the schema
@@ -10,7 +10,7 @@ class UserCreate(BaseModel):
     date_of_birth: date 
 
 class UserLogin(BaseModel):
-    email: str
+    email: EmailStr
     password: str
 
 class UserResponse(BaseModel):
@@ -22,4 +22,13 @@ class UserResponse(BaseModel):
 
 class LoginResponse(BaseModel):
     access_token: str
-    tokey_type: str
+    token_type: str
+    first_name: str
+    last_name: str
+
+class UserLogin(BaseModel):
+    email: EmailStr
+    password: str
+
+class UserResponsse(BaseModel):
+    pass
