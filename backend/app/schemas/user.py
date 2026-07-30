@@ -19,3 +19,7 @@ class UserResponse(BaseModel):
     last_name: str
     email: str
     model_config = ConfigDict(from_attributes=True)
+
+class LoginResponse(BaseModel):
+    access_token: str
+    tokey_type: str
