@@ -49,3 +49,12 @@ def login_user(user: UserLogin, db:Session):
             detail="Invalid email or password"
         )
     return existing_user
+
+def get_user_by_id(user_id: int, db: Session): 
+    user = db.query(User).filter(User.id == user_id).first()
+    if user is None:
+        raise HTTPException(
+            status_code=404,
+            detail="User not found"
+        )
+    return user

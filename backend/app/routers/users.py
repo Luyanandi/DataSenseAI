@@ -4,6 +4,8 @@ from app.database.database import get_db
 from app.schemas.user import UserCreate, UserResponse, UserLogin, LoginResponse
 from app.services.user_services import register_user, login_user
 from app.utils.security import create_access_token 
+from app.utils.security import get_current_user
+from app.models.user import User
 
 router = APIRouter() 
 
@@ -38,3 +40,9 @@ def login(
         first_name=logged_in_user.first_name,
         last_name=logged_in_user.last_name
     )
+
+@router.get("/me", response_model=UserResponse)
+def get_me(
+    current_user: User = Depends(get_current_user)
+    ):
+    return current_user

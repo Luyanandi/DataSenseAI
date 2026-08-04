@@ -1,7 +1,6 @@
 from pydantic import BaseModel, ConfigDict, EmailStr
 from datetime import date
 
-#Create the schema
 class UserCreate(BaseModel):
     first_name: str
     last_name: str
